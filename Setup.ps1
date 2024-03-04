@@ -20,7 +20,9 @@ $wingetDeps = @(
     "OpenJS.NodeJS"
     "Microsoft.PowerShell"
     "Starship.Starship"
+    "Cygwin.Cygwin"
     "Obsidian.Obsidian"
+    "Anaconda.Miniconda3"
 )
 $chocoDeps = @(
     "altsnap"
