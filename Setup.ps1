@@ -20,6 +20,7 @@ $wingetDeps = @(
     "OpenJS.NodeJS"
     "Microsoft.PowerShell"
     "Starship.Starship"
+    "Obsidian.Obsidian"
 )
 $chocoDeps = @(
     "altsnap"
@@ -77,26 +78,26 @@ Write-Host "Installing Fonts..."
 [void] [System.Reflection.Assembly]::LoadWithPartialName("System.Drawing")
 $fontFamilies = (New-Object System.Drawing.Text.InstalledFontCollection).Families
 
-# Check if CaskaydiaCove NF is installed
-if ($fontFamilies -notcontains "JetBrainsMono NF") {
-    # Download and install CaskaydiaCove NF
+# Check if Mononoki NF is installed
+# Remember change the version
+# or if you want to change font
+if ($fontFamilies -notcontains "Mononoki NF") {
+    # Download and install Mononoki NF
     $webClient = New-Object System.Net.WebClient
-    $webClient.DownloadFile("https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/JetBrainsMono.zip", ".\JetBrainsMono.zip")
-
-    Expand-Archive -Path ".\JetBrainsMono.zip" -DestinationPath ".\JetBrainsMono" -Force
+    $webClient.DownloadFile("https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/Mononoki.zip", ".\Mononoki.zip")
+    Expand-Archive -Path ".\Mononoki.zip" -DestinationPath ".\Mononoki" -Force
     $destination = (New-Object -ComObject Shell.Application).Namespace(0x14)
-
-    $fonts = Get-ChildItem -Path ".\JetBrainsMono" -Recurse -Filter "*.ttf"
+    $fonts = Get-ChildItem -Path ".\Mononoki" -Recurse -Filter "*.ttf"
     foreach ($font in $fonts) {
         # Only install standard fonts (16 fonts instead of 90+)
-        if ($font.Name -like "JetBrainsMonoNerdFont-*.ttf") {
+        if ($font.Name -like "MononokiNerdFont-*.ttf") {
             $destination.CopyHere($font.FullName, 0x10)
         }
     }
-
-    Remove-Item -Path ".\JetBrainsMono" -Recurse -Force
-    Remove-Item -Path ".\JetBrainsMono.zip" -Force
+    Remove-Item -Path ".\Mononoki" -Recurse -Force
+    Remove-Item -Path ".\Mononoki.zip" -Force
 }
+
 
 $currentGitEmail = (git config --global user.email)
 $currentGitName = (git config --global user.name)
